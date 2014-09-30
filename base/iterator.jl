@@ -4,11 +4,12 @@ isempty(itr) = done(itr, start(itr))
 
 immutable Enumerate{I}
     itr::I
+    start::Int
 end
-enumerate(itr) = Enumerate(itr)
+enumerate(itr, start=1) = Enumerate(itr, start)
 
 length(e::Enumerate) = length(e.itr)
-start(e::Enumerate) = (1, start(e.itr))
+start(e::Enumerate) = (e.start, start(e.itr))
 function next(e::Enumerate, state)
     n = next(e.itr,state[2])
     (state[1],n[1]), (state[1]+1,n[2])
